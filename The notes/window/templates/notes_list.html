@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Lobster&display=swap" rel="stylesheet">
+    <title>Notes List</title>
+    <style>
+        body {
+            background-image: url("{% static 'coffe.jpg' %}");
+            background-size: cover
+        }
+        .all_data {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            max-width: 600px;
+            background-color: #ddbc95;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-y: auto;
+            font-family: 'Black Ops One', cursive;
+        }
+        .delete {
+                padding: 7px 12px;
+                background-color: #b38867;
+                color: #000;
+                border: none;
+                border-radius: 5px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: 'Black Ops One', cursive  
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background-color: #b38867;
+            color: #000;
+            font-weight: bold;
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #000;
+        }   
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #000;
+        }
+        h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 24px;
+            color: #000;
+        } 
+    </style>
+</head>
+
+<body>
+    <div class="all_data">
+        <h4><a href="{% url 'home' %}" style="text-decoration: none; color: #000;">X</a></h4>
+        <h2 style="position: fixed;">Notes List</h2>
+        <br><br><br><br>
+        <table id="notes-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            {% if list_data %}
+            <tbody>
+                {% for item in list_data reversed %}
+                <tr>
+                    <td>{{ item.date | date:"Y-m-d"}}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.description }}</td>
+                    <td> 
+                        <form method="post" action="{% url 'delete' pk=item.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" onclick="delfunc()" class="delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% endif %}
+        </table>
+    </div>
+</body>
+</html>

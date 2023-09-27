@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Lobster&display=swap" rel="stylesheet">
+        <title>The Notes</title>
+            <style>
+                body {
+                    background-image: url("{% static 'coffe.jpg' %}");
+                    background-size: cover
+                }
+                .all_data {
+                max-width: 500px;
+                margin: 20px auto;
+                padding: 30px;
+                background-color: #ddbc95;
+                box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+                border-radius: 8px;
+                font-family: 'Black Ops One', cursive;
+                border: 1px solid #000;
+                }
+                label {
+                font-size: 16px;
+                font-weight: 600;
+                margin-right: 10px;
+                color: #000;
+                font-family: 'Black Ops One', cursive;
+                }
+                input[type="text"],
+                textarea {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                background-color: #ffffff;
+                border-radius: 5px;
+                font-size: 16px;
+                font-weight: 400;
+                color: #1c1e21;
+                box-sizing: border-box;
+                resize: none;
+                font-family: 'Black Ops One', cursive;
+                }
+                button {
+                padding: 10px 15px;
+                background-color: #b38867;
+                color: #000;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: 'Black Ops One', cursive  
+                }
+                h2 {
+                margin-top: 0;
+                font-size: 22px;
+                font-weight: 600;
+                text-align: center;
+                color: #000;
+                }
+                h1 {
+                font-family: 'Black Ops One', cursive; 
+                color: #000;
+                }
+            </style>
+    </head>
+    <body>
+        <center><h1>The Notes</h1></center>   
+        <form method="post" action = "{% url 'add_note'%}">
+            {% csrf_token %}
+            <div class="all_data">
+                <h2>Create new note</h2>
+                <div class="data_input">
+                    <label for="date">Date for event/note:</label>
+                    <input type="date" id="date" name="date" value="2023-09-23" min="2023-09-23" max="2025-12-31">
+                </div>
+                <div class="data_input">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title">
+                </div>
+                <div class="data_input">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+                <div class="buttons">
+                    <button id="add">Add Note</button>
+                    <button id="check"><a href="{% url 'notes_list' %}" style="text-decoration: none; color: #000;"  >Check notes list</a></button>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
